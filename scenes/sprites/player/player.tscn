@@ -1,25 +1,65 @@
-[gd_scene load_steps=4 format=3 uid="uid://cevmf40fthru8"]
+[gd_scene load_steps=7 format=3 uid="uid://cevmf40fthru8"]
 
 [ext_resource type="Script" path="res://scenes/sprites/player/player.gd" id="1_lm0qn"]
+[ext_resource type="Texture2D" uid="uid://b6xduxtfb3qqx" path="res://assets/Template-fall.png" id="2_yrndi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4mhse"]
 radius = 0.29657
 height = 0.943864
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_cv3k8"]
-radius = 0.297
-height = 0.944
+[sub_resource type="Animation" id="Animation_if325"]
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.233333, 0.366667, 0.5, 0.633333, 0.733333, 0.866667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_qjmwy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_njf01"]
+_data = {
+"RESET": SubResource("Animation_qjmwy"),
+"walk": SubResource("Animation_if325")
+}
 
 [node name="player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00959706, 5.96046e-08, -0.0179386)
 script = ExtResource("1_lm0qn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.507835, 0)
 shape = SubResource("CapsuleShape3D_4mhse")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.497162, 0)
-mesh = SubResource("CapsuleMesh_cv3k8")
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.967493, 0.252897, 0, -0.252897, 0.967493, 0, 1.37764, 3.41371)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1.76615, 0, 0, 0, 2.04068, 0, 0, 0, 1, 0, 0.644143, 0)
+texture = ExtResource("2_yrndi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_njf01")
+}
