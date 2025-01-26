@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq3x4u4ad5f45"]
+
+[ext_resource type="MeshLibrary" uid="uid://boyuoele3yu7q" path="res://scenes/tiles/tileset.meshlib" id="1_uuon6"]
+[ext_resource type="PackedScene" uid="uid://cevmf40fthru8" path="res://scenes/sprites/player/player.tscn" id="2_b6vhv"]
+
+[node name="lvl1" type="Node3D"]
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_uuon6")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(0, 65535, 1441792, 65535, 65535, 1441792, -1, 65535, 1441792, -65536, 65535, 1441792, 65532, 65535, 1441792, 65533, 65535, 1441792, 65534, 65535, 1441792, 1, 65535, 1441792, 2, 65535, 1441792, 3, 65535, 1441792, -65533, 65535, 1441792, -65534, 65535, 1441792, -2, 65535, 1441792, -3, 65535, 1441792, -4, 65535, 1441792, -5, 65535, 1441792, 65531, 65535, 1441792, -65535, 65535, 1441792)
+}
+metadata/_editor_floor_ = Vector3(0, 0, -1)
+
+[node name="player" parent="." instance=ExtResource("2_b6vhv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02579, -0.406009)
