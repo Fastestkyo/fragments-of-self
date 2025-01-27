@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bq3x4u4ad5f45"]
+[gd_scene load_steps=8 format=3 uid="uid://bq3x4u4ad5f45"]
 
 [ext_resource type="MeshLibrary" uid="uid://boyuoele3yu7q" path="res://scenes/tiles/tileset.meshlib" id="1_uuon6"]
 [ext_resource type="PackedScene" uid="uid://cevmf40fthru8" path="res://scenes/sprites/player/player.tscn" id="2_b6vhv"]
 [ext_resource type="PackedScene" uid="uid://b4ouvymg8td3i" path="res://scenes/enemy/enemy.tscn" id="3_wm38o"]
+[ext_resource type="PackedScene" uid="uid://4yh70re2iij1" path="res://scenes/misc/snow3d.tscn" id="4_oyoec"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ctyv2"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -18,9 +19,10 @@ tonemap_mode = 2
 glow_enabled = true
 
 [node name="lvl1" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00808617, 0.0761065, -0.0293212)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0.00428534, -4.76837e-07, -4.86374e-05)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -39,3 +41,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02579, -0.406009)
 
 [node name="enemy" parent="." instance=ExtResource("3_wm38o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14378, 1.44, -0.256277)
+
+[node name="GPUParticles3D" parent="." instance=ExtResource("4_oyoec")]
+transform = Transform3D(1.00405, 0, 0, 0, 1.00405, 0, 0, 0, 1.00405, 0, 8.05082, 0)
