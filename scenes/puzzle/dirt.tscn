@@ -1,16 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmw6ypwy7xseq"]
+[gd_scene load_steps=4 format=3 uid="uid://dmw6ypwy7xseq"]
 
 [ext_resource type="Script" path="res://dirt.gd" id="1_qhtlb"]
+[ext_resource type="Texture2D" uid="uid://bnpkvxdwt4luo" path="res://assets/970ff5d0525d49ed86b19db932191c2c.webp" id="2_o8e7w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_av2xm"]
 size = Vector3(1.15941, 1, 1.09326)
 
 [node name="dirt" type="Node3D"]
 script = ExtResource("1_qhtlb")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00625294, 0)
-size = Vector3(1, 0.0332031, 1)
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 0
@@ -19,5 +16,9 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00704807, 0.422742, 0.0195889)
 shape = SubResource("BoxShape3D_av2xm")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.168013, 0, 0, 0, -0.00174185, 0.987583, 0, -0.152827, -0.011256, 0, 0, 0)
+texture = ExtResource("2_o8e7w")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

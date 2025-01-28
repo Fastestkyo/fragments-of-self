@@ -2,7 +2,7 @@
 
 [ext_resource type="MeshLibrary" uid="uid://boyuoele3yu7q" path="res://scenes/tiles/tileset.meshlib" id="1_uuon6"]
 [ext_resource type="PackedScene" uid="uid://cevmf40fthru8" path="res://scenes/sprites/player/player.tscn" id="2_b6vhv"]
-[ext_resource type="PackedScene" uid="uid://b4ouvymg8td3i" path="res://scenes/enemy/enemy.tscn" id="3_wm38o"]
+[ext_resource type="PackedScene" uid="uid://b4ouvymg8td3i" path="res://scenes/sprites/enemy/enemy.tscn" id="3_wm38o"]
 [ext_resource type="PackedScene" uid="uid://4yh70re2iij1" path="res://scenes/misc/snow3d.tscn" id="4_oyoec"]
 [ext_resource type="PackedScene" uid="uid://nhfkclor1io1" path="res://scenes/misc/shard.tscn" id="5_pmlbv"]
 

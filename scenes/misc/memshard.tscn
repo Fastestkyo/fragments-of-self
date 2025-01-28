@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://drpxl6a61r0f6"]
+
+[ext_resource type="Script" path="res://scenes/misc/memshard.gd" id="1_3a75s"]
+[ext_resource type="Texture2D" uid="uid://cvlhyju7bo2t0" path="res://assets/sprite_02.png" id="2_3if6j"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_c4hqo"]
+radius = 0.613242
+
+[node name="memshard" type="Node3D"]
+script = ExtResource("1_3a75s")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.355215, 0, 0, 0, 0.325294, 0, 0, 0, 1.00148, 0, 0, 0)
+texture = ExtResource("2_3if6j")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_c4hqo")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

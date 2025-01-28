@@ -2,7 +2,7 @@
 
 [ext_resource type="MeshLibrary" uid="uid://boyuoele3yu7q" path="res://scenes/tiles/tileset.meshlib" id="1_jlb27"]
 [ext_resource type="PackedScene" uid="uid://cevmf40fthru8" path="res://scenes/sprites/player/player.tscn" id="2_6wgpy"]
-[ext_resource type="PackedScene" uid="uid://b4ouvymg8td3i" path="res://scenes/enemy/enemy.tscn" id="3_naj8f"]
+[ext_resource type="PackedScene" uid="uid://b4ouvymg8td3i" path="res://scenes/sprites/enemy/enemy.tscn" id="3_naj8f"]
 [ext_resource type="PackedScene" uid="uid://4yh70re2iij1" path="res://scenes/misc/snow3d.tscn" id="4_y4kxt"]
 [ext_resource type="PackedScene" uid="uid://cdu45y4p2h6vd" path="res://scenes/misc/shovel.tscn" id="5_krtuc"]
 [ext_resource type="PackedScene" uid="uid://dmw6ypwy7xseq" path="res://scenes/puzzle/dirt.tscn" id="6_lqrtl"]
@@ -48,7 +48,7 @@ transform = Transform3D(1.00405, 0, 0, 0, 1.00405, 0, 0, 0, 1.00405, 0, 8.05082,
 visible = false
 
 [node name="shovel" parent="." instance=ExtResource("5_krtuc")]
-transform = Transform3D(0.498906, 0, 0, 0, 0.547387, 0, 0, 0, 1, -1.44728, 3.67848, 0)
+transform = Transform3D(0.498906, 0, 0, 0, 0.547387, 0, 0, 0, 1, -1.44728, 3.67848, -0.394688)
 
 [node name="dirt" parent="." instance=ExtResource("6_lqrtl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.11089, -0.471847)
+transform = Transform3D(0.725432, 0, 0, 0, 0.998512, 0, 0, 0, 0.637354, 1.20741, 1.03765, -0.504782)
