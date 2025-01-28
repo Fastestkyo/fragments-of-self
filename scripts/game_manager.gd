@@ -20,17 +20,13 @@ var inv = {
 func tp_no():
 	var scene_path = noshard_map.get(noshard, "")
 	if scene_path == "":
-		print("No map found for noshard =", noshard)
 		return
-	
 	_load_map(scene_path)
 
 func tp_mem():
 	var scene_path = memshard_map.get(memshard, "")
 	if scene_path == "":
-		print("No map found for memshard =", memshard)
 		return
-	
 	_load_map(scene_path)
 
 func _load_map(scene_path: String):
