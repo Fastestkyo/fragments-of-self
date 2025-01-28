@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdu45y4p2h6vd"]
+
+[ext_resource type="Script" path="res://shovel.gd" id="1_qx876"]
+[ext_resource type="Texture2D" uid="uid://crsqkt4japc8q" path="res://assets/pngtree-shovel-in-pixel-art-style-png-image_12605685.png" id="2_c8n7c"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2yynq"]
+height = 1.55991
+radius = 0.547193
+
+[node name="shovel" type="Node3D"]
+script = ExtResource("1_qx876")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.443667, 0, 0, 0, 0.439289, 0, 0, 0, 1, 0, 0, 0)
+texture = ExtResource("2_c8n7c")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_2yynq")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

@@ -1,0 +1,143 @@
+[gd_scene load_steps=12 format=3 uid="uid://f7dv4lc1eiov"]
+
+[ext_resource type="MeshLibrary" uid="uid://boyuoele3yu7q" path="res://scenes/tiles/tileset.meshlib" id="1_yqs03"]
+[ext_resource type="PackedScene" uid="uid://cevmf40fthru8" path="res://scenes/sprites/player/player.tscn" id="2_r01v6"]
+[ext_resource type="PackedScene" uid="uid://b4ouvymg8td3i" path="res://scenes/enemy/enemy.tscn" id="3_6cc4g"]
+[ext_resource type="PackedScene" uid="uid://4yh70re2iij1" path="res://scenes/misc/snow3d.tscn" id="4_sl4nk"]
+[ext_resource type="PackedScene" uid="uid://nhfkclor1io1" path="res://scenes/misc/shard.tscn" id="5_xu4uv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ctyv2"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_1h40q"]
+sky_material = SubResource("ProceduralSkyMaterial_ctyv2")
+
+[sub_resource type="Environment" id="Environment_ft7oa"]
+background_mode = 2
+sky = SubResource("Sky_1h40q")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Animation" id="Animation_7u3xh"]
+resource_name = "shard"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("shard:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.272767, 0.433333, 0.6, 1.06972, 1.4, 1.8, 2.4, 2.66667, 2.73333, 2.83333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-2.32851, 1.46422, -0.29356), Vector3(-2.63876, 2.46348, -0.29356), Vector3(-2.63876, 2.46348, -0.29356), Vector3(-2.63876, 2.46348, -0.29356), Vector3(-1.90546, 3.20259, -0.158347), Vector3(-1.90546, 3.20259, -0.158347), Vector3(-2.57716, 3.90093, -0.502797), Vector3(-2.57716, 3.90093, -0.502797), Vector3(-2.25167, 5.21037, -0.502797), Vector3(-2.25167, 5.91746, -0.502797), Vector3(-2.25167, 6.51856, -0.502797)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("player:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.272767, 0.433333, 0.6, 1.06972, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.669705, 0.993292, -0.406009), Vector3(-2.32166, 2.61494, -0.406009), Vector3(-2.32166, 2.61494, -0.406009), Vector3(-2.32166, 2.61494, -0.406009), Vector3(-2.32166, 2.61494, -0.406009), Vector3(-2.32166, 2.61494, -0.406009)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("shard:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.8, 2.06667, 2.66667, 2.73333, 2.83333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -2.83593, 0), Vector3(0, -5.88176, 0), Vector3(0, 0.401426, 0), Vector3(0, -3.01514, 0), Vector3(0, 0.75681, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_yn3cu"]
+length = 0.001
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("shard:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-2.32851, 1.46422, -0.29356)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("player:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-2.3301, 1.02579, -0.406009)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("shard:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -2.83593, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lx7nn"]
+_data = {
+"RESET": SubResource("Animation_yn3cu"),
+"shard": SubResource("Animation_7u3xh")
+}
+
+[node name="lvl1" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00808617, 0.0761065, -0.0293212)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0.00428534, -4.76837e-07, -4.86374e-05)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ft7oa")
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_yqs03")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(0, 65535, 1441792, 65535, 65535, 1441792, -1, 65535, 1441792, -65536, 65535, 1441792, 65532, 65535, 1441792, 65533, 65535, 1441792, 65534, 65535, 1441792, 1, 65535, 1441792, 2, 65535, 1441792, 3, 65535, 1441792, -65533, 65535, 1441792, -65534, 65535, 1441792, -2, 65535, 1441792, -3, 65535, 1441792, -4, 65535, 1441792, -5, 65535, 1441792, -65535, 65535, 1441792, 65531, 65535, 131072)
+}
+metadata/_editor_floor_ = Vector3(0, 0, -1)
+
+[node name="player" parent="." instance=ExtResource("2_r01v6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3301, 1.02579, -0.406009)
+
+[node name="enemy" parent="." instance=ExtResource("3_6cc4g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14378, 1.44, -0.256277)
+
+[node name="GPUParticles3D" parent="." instance=ExtResource("4_sl4nk")]
+transform = Transform3D(1.00405, 0, 0, 0, 1.00405, 0, 0, 0, 1.00405, 0, 8.05082, 0)
+visible = false
+
+[node name="shard" parent="." node_paths=PackedStringArray("anim") instance=ExtResource("5_xu4uv")]
+transform = Transform3D(-0.953648, 0, -0.300922, 0, 1, 0, 0.300922, 0, -0.953648, -2.32851, 1.46422, -0.29356)
+anim = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lx7nn")
+}
