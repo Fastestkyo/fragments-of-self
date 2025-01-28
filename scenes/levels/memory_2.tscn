@@ -3,7 +3,7 @@
 [ext_resource type="MeshLibrary" uid="uid://boyuoele3yu7q" path="res://scenes/tiles/tileset.meshlib" id="1_6rfhn"]
 [ext_resource type="PackedScene" uid="uid://cevmf40fthru8" path="res://scenes/sprites/player/player.tscn" id="2_006vc"]
 
-[node name="memory1" type="Node3D"]
+[node name="memory2" type="Node3D"]
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("1_6rfhn")

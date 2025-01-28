@@ -1,9 +1,9 @@
 extends CharacterBody3D
 @onready var anim: AnimatedSprite3D = $AnimatedSprite3D
 
-@export var SPEED = 1
+@export var SPEED = 5
 const JUMP_VELOCITY = 4.5
-const grav = 25
+const grav = 20
 var dir
 var dashactive = true
 var dashing = false
