@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dwnan2yly0oxq"]
+[gd_scene load_steps=14 format=3 uid="uid://dwnan2yly0oxq"]
 
 [ext_resource type="MeshLibrary" uid="uid://boyuoele3yu7q" path="res://scenes/tiles/tileset.meshlib" id="1_jlb27"]
 [ext_resource type="PackedScene" uid="uid://cevmf40fthru8" path="res://scenes/sprites/player/player.tscn" id="2_6wgpy"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://4yh70re2iij1" path="res://scenes/misc/snow3d.tscn" id="4_y4kxt"]
 [ext_resource type="PackedScene" uid="uid://cdu45y4p2h6vd" path="res://scenes/misc/shovel.tscn" id="5_krtuc"]
 [ext_resource type="PackedScene" uid="uid://dmw6ypwy7xseq" path="res://scenes/puzzle/dirt.tscn" id="6_lqrtl"]
+[ext_resource type="PackedScene" uid="uid://nhfkclor1io1" path="res://scenes/misc/shard.tscn" id="7_8y5rl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lyggo"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -20,6 +21,68 @@ sky = SubResource("Sky_1h40q")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="Animation" id="Animation_5slqs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("shard:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-2.32851, 1.46422, -0.29356)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("shard:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ehy6q"]
+resource_name = "shard"
+length = 3.33334
+step = 0.0666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("shard:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.140637, 0.31274, 0.445256, 0.680577, 0.91493, 1.11919, 1.29235, 1.75199, 2.01172, 2.47293),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-2.32851, 1.46422, -0.29356), Vector3(-2.90196, 2.41777, -0.29353), Vector3(-2.90196, 2.41777, -0.29353), Vector3(-2.90196, 2.41777, -0.29353), Vector3(-2.18093, 2.96926, -0.29353), Vector3(-2.18093, 2.96926, -0.29353), Vector3(-2.18093, 2.96926, -0.29353), Vector3(-2.42318, 4.25911, -0.29353), Vector3(-2.42318, 6.46321, -0.29353), Vector3(-2.42318, 7.36814, -0.29353), Vector3(-2.42318, 8.63624, -0.29353)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("shard:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.139555, 0.311659, 0.445797, 0.676805, 0.928958, 1.11718, 1.29235, 1.75199, 2.01172, 2.47293),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.892265, 0), Vector3(0, 1.93906, 0), Vector3(0, 3.33183, 0), Vector3(0, 0.872665, 0), Vector3(0, 1.74533, 0), Vector3(0, 2.61799, 0), Vector3(0, 0.250943, 0), Vector3(0, -2.30214, 0), Vector3(0, -0.895022, 0), Vector3(0, 2.01579, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_67p1f"]
+_data = {
+"RESET": SubResource("Animation_5slqs"),
+"shard": SubResource("Animation_ehy6q")
+}
+
 [node name="memory1" type="Node3D"]
 
 [node name="GridMap" type="GridMap" parent="."]
@@ -31,7 +94,7 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 0, -1)
 
 [node name="player" parent="." instance=ExtResource("2_6wgpy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.350444, 3.08333, -0.406009)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.645655, 3.07676, -0.406009)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0.00428534, -4.76837e-07, -4.86374e-05)
@@ -52,3 +115,12 @@ transform = Transform3D(0.498906, 0, 0, 0, 0.547387, 0, 0, 0, 1, -1.44728, 3.678
 
 [node name="dirt" parent="." instance=ExtResource("6_lqrtl")]
 transform = Transform3D(0.725432, 0, 0, 0, 0.998512, 0, 0, 0, 0.637354, 1.20741, 1.03765, -0.504782)
+
+[node name="shard" parent="." node_paths=PackedStringArray("anim") instance=ExtResource("7_8y5rl")]
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -2.32851, 1.46422, -0.29356)
+anim = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_67p1f")
+}

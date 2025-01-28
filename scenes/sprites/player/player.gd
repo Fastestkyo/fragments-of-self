@@ -10,8 +10,6 @@ var dashing = false
 var candash = true
 var dubleactive = false
 
-func _ready() -> void:
-	$Camera3D.set_player(self)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -21,7 +19,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		if Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
 			anim.play('walk')
-			$Camera3D.shake(0.03,0.5)
 		else:
 			anim.play('idle')
 			

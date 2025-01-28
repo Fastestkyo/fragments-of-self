@@ -1,7 +1,6 @@
-[gd_scene load_steps=27 format=3 uid="uid://cevmf40fthru8"]
+[gd_scene load_steps=26 format=3 uid="uid://cevmf40fthru8"]
 
 [ext_resource type="Script" path="res://scenes/sprites/player/player.gd" id="1_lm0qn"]
-[ext_resource type="Script" path="res://scenes/sprites/player/camera_3d.gd" id="2_ao6x8"]
 [ext_resource type="Texture2D" uid="uid://c5shx31vbpexw" path="res://assets/Template-walk.png" id="2_ksf0d"]
 [ext_resource type="Texture2D" uid="uid://b6xduxtfb3qqx" path="res://assets/Template-fall.png" id="2_yrndi"]
 [ext_resource type="Texture2D" uid="uid://dg5c1kiicky7k" path="res://assets/Template-death.png" id="3_st6po"]
@@ -177,7 +176,6 @@ shape = SubResource("CapsuleShape3D_4mhse")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.967493, 0.252897, 0, -0.252897, 0.967493, 0, 1.37764, 3.41371)
-script = ExtResource("2_ao6x8")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1.48983, 0, 0, 0, 1.6625, 0, 0, 0, 1, 0, 0.530771, 0)
