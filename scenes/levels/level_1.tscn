@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://bq3x4u4ad5f45"]
+[gd_scene load_steps=16 format=3 uid="uid://bq3x4u4ad5f45"]
 
 [ext_resource type="MeshLibrary" uid="uid://boyuoele3yu7q" path="res://scenes/tiles/tileset.meshlib" id="1_uuon6"]
 [ext_resource type="PackedScene" uid="uid://cevmf40fthru8" path="res://scenes/sprites/player/player.tscn" id="2_b6vhv"]
 [ext_resource type="PackedScene" uid="uid://b4ouvymg8td3i" path="res://scenes/sprites/enemy/enemy.tscn" id="3_wm38o"]
 [ext_resource type="PackedScene" uid="uid://4yh70re2iij1" path="res://scenes/misc/snow3d.tscn" id="4_oyoec"]
 [ext_resource type="PackedScene" uid="uid://nhfkclor1io1" path="res://scenes/misc/shard.tscn" id="5_pmlbv"]
+[ext_resource type="Script" path="res://scenes/levels/deaththing.gd" id="6_w5vfo"]
+[ext_resource type="PackedScene" uid="uid://chjodyhjtbu4m" path="res://scenes/misc/ball.tscn" id="7_y27cn"]
+[ext_resource type="PackedScene" uid="uid://dtaoavfcq6kod" path="res://scenes/misc/wall.tscn" id="8_dyjca"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ctyv2"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -48,7 +51,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_ehy6q"]
 resource_name = "shard"
-length = 3.33334
+length = 2.6
 step = 0.0666667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -81,6 +84,8 @@ _data = {
 "shard": SubResource("Animation_ehy6q")
 }
 
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_37ik8"]
+
 [node name="lvl1" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00808617, 0.0761065, -0.0293212)
 
@@ -103,7 +108,7 @@ metadata/_editor_floor_ = Vector3(0, 0, -1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.669705, 0.993292, -0.406009)
 
 [node name="enemy" parent="." instance=ExtResource("3_wm38o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14378, 1.44, -0.256277)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75676, 1.44, -0.639882)
 
 [node name="GPUParticles3D" parent="." instance=ExtResource("4_oyoec")]
 transform = Transform3D(1.00405, 0, 0, 0, 1.00405, 0, 0, 0, 1.00405, 0, 8.05082, 0)
@@ -118,3 +123,22 @@ type = 1
 libraries = {
 "": SubResource("AnimationLibrary_67p1f")
 }
+
+[node name="deaththing" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("6_w5vfo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="deaththing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.22144, 0)
+shape = SubResource("WorldBoundaryShape3D_37ik8")
+
+[node name="ball" parent="." instance=ExtResource("7_y27cn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49378, -0.722804)
+collision_layer = 8
+collision_mask = 3
+
+[node name="wall" parent="." instance=ExtResource("8_dyjca")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.42206, 1.49378, -0.722804)
+
+[connection signal="body_entered" from="deaththing" to="deaththing" method="_on_body_entered"]

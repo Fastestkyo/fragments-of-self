@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b4ouvymg8td3i"]
+[gd_scene load_steps=22 format=3 uid="uid://b4ouvymg8td3i"]
 
 [ext_resource type="Script" path="res://scenes/sprites/enemy/enemy.gd" id="1_fvsp2"]
 [ext_resource type="Texture2D" uid="uid://c43bqknl6qe6a" path="res://assets/slime-Sheet.png" id="1_urpcy"]
@@ -128,10 +128,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_77ggi"]
-radius = 0.840585
+[sub_resource type="BoxShape3D" id="BoxShape3D_2kwva"]
+size = Vector3(2.28375, 0.380432, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wyx6m"]
+size = Vector3(0.0563812, 0.250366, 1)
 
 [node name="enemy" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_fvsp2")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
@@ -145,8 +150,21 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0555801, 0)
-shape = SubResource("SphereShape3D_77ggi")
+transform = Transform3D(0.883151, 0, 0, 0, 0.883151, 0, 0, 0, 0.883151, 0.114527, 0.0459045, 0)
+shape = SubResource("BoxShape3D_2kwva")
+
+[node name="kil" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="kil"]
+transform = Transform3D(3.38051, 0, 0, 0, 0.566159, 0, 0, 0, 0.787673, 0.031391, -0.103036, 0)
+shape = SubResource("BoxShape3D_wyx6m")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.247873, 0, 0, 0, 0.883151, 0, 0, 0, 0.883151, 0.0536299, -0.2326, 0)
+shape = SubResource("BoxShape3D_2kwva")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="kil" to="." method="_on_kil_body_entered"]

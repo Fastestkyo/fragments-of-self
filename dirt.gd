@@ -12,3 +12,8 @@ func _process(delta: float) -> void:
 		GameManager.inv['shovel'] = 0
 		self.queue_free()
 		
+
+
+func _on_area_3d_body_exited(body: Node3D) -> void:
+	if body.name == 'player':
+		playerindirt = false

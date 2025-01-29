@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://cjn2phml8upy0"]
+[gd_scene load_steps=15 format=3 uid="uid://cjn2phml8upy0"]
 
 [ext_resource type="MeshLibrary" uid="uid://boyuoele3yu7q" path="res://scenes/tiles/tileset.meshlib" id="1_yqs03"]
 [ext_resource type="PackedScene" uid="uid://cevmf40fthru8" path="res://scenes/sprites/player/player.tscn" id="2_r01v6"]
 [ext_resource type="PackedScene" uid="uid://b4ouvymg8td3i" path="res://scenes/sprites/enemy/enemy.tscn" id="3_6cc4g"]
 [ext_resource type="PackedScene" uid="uid://4yh70re2iij1" path="res://scenes/misc/snow3d.tscn" id="4_sl4nk"]
 [ext_resource type="PackedScene" uid="uid://nhfkclor1io1" path="res://scenes/misc/shard.tscn" id="5_xu4uv"]
+[ext_resource type="PackedScene" uid="uid://bcbwgyvbmqjwl" path="res://scenes/misc/ladder.tscn" id="6_vpx7n"]
+[ext_resource type="PackedScene" uid="uid://da4vjpbrcga3n" path="res://scenes/misc/lever.tscn" id="7_ymv3p"]
+[ext_resource type="PackedScene" uid="uid://r7ej88qy3lpc" path="res://scenes/misc/gate.tscn" id="8_g6x6k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ctyv2"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -48,7 +51,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_ehy6q"]
 resource_name = "shard"
-length = 3.33334
+length = 2.6
 step = 0.0666667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -112,9 +115,18 @@ visible = false
 [node name="shard" parent="." node_paths=PackedStringArray("anim") instance=ExtResource("5_xu4uv")]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -2.32851, 1.46422, -0.29356)
 anim = NodePath("../AnimationPlayer")
-type = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_67p1f")
 }
+
+[node name="ladder" parent="." instance=ExtResource("6_vpx7n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.715858, -0.499334)
+
+[node name="lever" parent="." node_paths=PackedStringArray("gate") instance=ExtResource("7_ymv3p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.52221, 1.4474, -0.596101)
+gate = NodePath("../gate")
+
+[node name="gate" parent="." instance=ExtResource("8_g6x6k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.07798, 0.73114, -0.492005)

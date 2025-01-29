@@ -39,3 +39,8 @@ func chase():
 	else:
 		velocity = Vector3.ZERO
 		anim.play('idle')
+
+
+func _on_kil_body_entered(body: Node3D) -> void:
+	if body.name == 'player':
+		queue_free()
