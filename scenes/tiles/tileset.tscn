@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=4 uid="uid://by1ux1yrerjnb"]
+
+[ext_resource type="PackedScene" uid="uid://00835w8f818p" path="res://scenes/tiles/tileset.glb" id="1_ypg1k"]
+[ext_resource type="Texture2D" uid="uid://di1e10qqhqhs7" path="res://addons/godot_super-wakatime/tileset (2)_tatti_dirt.jpg" id="2_myuut"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_lsc86"]
+data = PackedVector3Array(-1, 0, 1, 1, 0, -1, 1, 0, 1, -1, 0, 1, -1, 0, -1, 1, 0, -1, -1, 0, -1, 1, 2, -1, 1, 0, -1, -1, 0, -1, -1, 2, -1, 1, 2, -1, -1, 2, -1, 1, 0, -1, 1, 2, -1, -1, 2, -1, -1, 0, -1, 1, 0, -1, 1, 2, -1, -1, 2, 1, -1, 2, -1, 1, 2, -1, 1, 2, 1, -1, 2, 1, 1, 2, 1, -1, 2, 1, -1, 2, 1, 1, 2, 1, 1, 2, 1, -1, 2, 1, 1, 2, 1, -1, 0, 1, -1, 2, 1, 1, 2, 1, 1, 0, 1, -1, 0, 1, 1, 0, -1, 1, 2, 1, 1, 0, 1, 1, 0, -1, 1, 2, -1, 1, 2, 1, -1, 0, 1, -1, 2, -1, -1, 0, -1, -1, 0, 1, -1, 2, 1, -1, 2, -1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u4s1w"]
+resource_name = "Material.001"
+cull_mode = 2
+albedo_texture = ExtResource("2_myuut")
+roughness = 0.5
+texture_filter = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_c2l1f"]
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"format": 34896613377,
+"index_count": 48,
+"index_data": PackedByteArray("AAADAAEAAAACAAMAAgAFAAMAAgAEAAUABAADAAUABAACAAMABQAGAAQABQAHAAYABwAGAAYABwAHAAYABwAAAAYABwABAAAAAwAHAAEAAwAFAAcAAAAEAAIAAAAGAAQA"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAD//wAA//8AAAAAAAAAAAAA//8AAAAAAAAAAP//AAAAAP////8AAAAAAAD/////AAD///////8AAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_plv4h"]
+resource_name = "tileset (2)_Plane"
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("AAD//wAA/////////////wAA//8AAAAA/////////////wAAAAD//wAAAAAAAP//////////AAD/////AAD//wAAAAD//wAA//8AAP////8AAAAAAAD//////////wAAAAD//wAAAAD//wAAAAAAAP//AAAAAAAAAAAAAP//AAA="),
+"format": 34896613399,
+"index_count": 48,
+"index_data": PackedByteArray("AAAIAAIAAAAFAAgABAANAAcABAAKAA0ACwARAA4ACwAQABEADwASAAwADwAUABIAFQAXABMAFQAZABcAGAAaABYAGAAbABoACQAcAAMACQAdABwAAQAfAAYAAQAeAB8A"),
+"material": SubResource("StandardMaterial3D_u4s1w"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 32,
+"vertex_data": PackedByteArray("AAAAAP///78AAAAA////v///AAD///+///8AAP///78AAAAAAAAAgAAAAAAAAP+/AAAAAAAA/7///wAAAAAAgP//AAAAAP+///8AAAAA/78AAP//AAAAgAAA//8AAP//AAD//wAA////////AAAAgP////8AAP///////wAA//8AAAAAAAD/////AAAAAP//AAD///////8AAP//////v////////////////////78AAP///////wAA/////////////////////////////wAAAAD///////8AAP//////////////v/////8AAP+/AAD//////78AAP//AAD/v////3//fwAA////f/9/////f///////f/9/AAD/f///////f/9/////f///////f/9//7//f///////f/9//7////9/////f/9//7////9//3//v////3//f/9//3//v/9//3//f/+//3//f/9//3//f////3////9/AAD/fwAA")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_c2l1f")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_2l0pf"]
+data = PackedVector3Array(-1, 0, 1, 1, 0, -1, 1, 0, 1, -1, 0, 1, -1, 0, -1, 1, 0, -1, -1, 0, -1, 1, 2, -1, 1, 0, -1, -1, 0, -1, -1, 2, -1, 1, 2, -1, -1, 2, -1, 1, 0, -1, 1, 2, -1, -1, 2, -1, -1, 0, -1, 1, 0, -1, 1, 2, -1, -1, 2, 1, -1, 2, -1, 1, 2, -1, 1, 2, 1, -1, 2, 1, 1, 2, 1, -1, 2, 1, -1, 2, 1, 1, 2, 1, 1, 2, 1, -1, 2, 1, 1, 2, 1, -1, 0, 1, -1, 2, 1, 1, 2, 1, 1, 0, 1, -1, 0, 1, 1, 0, -1, 1, 2, 1, 1, 0, 1, 1, 0, -1, 1, 2, -1, 1, 2, 1, -1, 0, 1, -1, 2, -1, -1, 0, -1, -1, 0, 1, -1, 2, 1, -1, 2, -1)
+
+[node name="tileset" instance=ExtResource("1_ypg1k")]
+
+[node name="Plane" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Plane" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/StaticBody3D" index="0"]
+shape = SubResource("ConcavePolygonShape3D_lsc86")
+
+[node name="Plane2" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+mesh = SubResource("ArrayMesh_plv4h")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Plane2" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane2/StaticBody3D" index="0"]
+shape = SubResource("ConcavePolygonShape3D_2l0pf")

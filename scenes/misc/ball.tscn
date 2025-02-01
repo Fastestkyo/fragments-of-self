@@ -5,9 +5,9 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_n2tlk"]
 
 [node name="ball" type="RigidBody3D"]
-collision_layer = 0
+collision_layer = 128
 axis_lock_linear_z = true
-mass = 0.017
+mass = 0.029
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_eet5m")

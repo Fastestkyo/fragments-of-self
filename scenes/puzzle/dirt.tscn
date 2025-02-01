@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dmw6ypwy7xseq"]
 
-[ext_resource type="Script" path="res://dirt.gd" id="1_qhtlb"]
+[ext_resource type="Script" path="res://scenes/puzzle/dirt.gd" id="1_qhtlb"]
 [ext_resource type="Texture2D" uid="uid://bnpkvxdwt4luo" path="res://assets/970ff5d0525d49ed86b19db932191c2c.webp" id="2_o8e7w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_av2xm"]
