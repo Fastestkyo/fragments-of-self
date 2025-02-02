@@ -145,16 +145,30 @@ func bodyparts():
 	if GameManager.noshard == 0:
 		SPEED = 2
 		JUMP_VELOCITY = 1.5
+		candash= false
 	elif GameManager.noshard == 1 and GameManager.memshard == 1:
 		SPEED = 3
+		candash= false
 		JUMP_VELOCITY = 3.5
 	elif GameManager.noshard == 2 and GameManager.memshard == 2:
 		SPEED = 5
 		JUMP_VELOCITY = 4.7
+		candash= false
 	elif GameManager.noshard == 3 and GameManager.memshard == 3:
 		SPEED = 5
 		JUMP_VELOCITY = 4.7
+		candash= true
 		dashsped = 4
+	elif GameManager.noshard == 4 and GameManager.memshard == 4:
+		SPEED = 5
+		JUMP_VELOCITY = 4.7
+		candash= true
+		dashsped = 7
+	elif GameManager.noshard == 3 and GameManager.memshard == 3:
+		SPEED = 5
+		JUMP_VELOCITY = 4.7
+		candash= true
+		dashsped = 10
 	elif GameManager.noshard > GameManager.memshard:
 		SPEED = 5
 		JUMP_VELOCITY = 6
