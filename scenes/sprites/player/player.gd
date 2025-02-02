@@ -164,7 +164,7 @@ func bodyparts():
 		JUMP_VELOCITY = 4.7
 		candash= true
 		dashsped = 7
-	elif GameManager.noshard == 3 and GameManager.memshard == 3:
+	elif GameManager.noshard == 5 and GameManager.memshard == 5:
 		SPEED = 5
 		JUMP_VELOCITY = 4.7
 		candash= true
