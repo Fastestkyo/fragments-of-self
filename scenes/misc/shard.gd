@@ -1,6 +1,16 @@
 extends Node3D
-@export var anim : AnimationPlayer
+@onready var anim : AnimationPlayer = $AnimationPlayer
+@onready var anim3d: AnimatedSprite3D = $AnimatedSprite3D
+
 @export var type :int
+
+func _ready() -> void:
+	if type == 1:
+		anim3d.play("shard" + str(GameManager.noshard))
+	elif type == 2:
+		anim3d.play("memshard" + str(GameManager.memshard))
+	
+	print(GameManager.noshard)
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.name == 'player':

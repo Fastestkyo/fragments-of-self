@@ -1,72 +1,160 @@
 extends CharacterBody3D
 
-enum State { NORMAL, CLING }
-var current_state = State.NORMAL
+@onready var anim: AnimatedSprite3D = $AnimatedSprite3D
 
-@export var speed: float = 5.0
-@export var jump_force: float = 6.0
-@export var wall_jump_force: Vector3 = Vector3(6, 8, 0)
-@export var gravity: float = 15.0
+@export var SPEED = 5
+@export var max_jump: int = 1
+var JUMP_VELOCITY = 4.5
+var grav = 20
+var ladder_position = Vector3.ZERO
+var dir
+var dashactive = true
+var dashing = false
+var candash = true
+var dubleactive = false
+var jump_count = 0
+var gliding = false
+var can_glide = false
+var dashsped = 15
 
-var direction: Vector3 = Vector3.ZERO
-var jump_count: int = 0
 
-@onready var anim = $AnimationPlayer
+enum state {
+	NORMAL, LADDER, SLAM
+}
+var current_state = state.NORMAL
 
-func _physics_process(delta):
-	# Apply gravity unless clinging
-	if not is_on_floor() and current_state != State.CLING:
-		velocity.y -= gravity * delta
-
+func _physics_process(delta: float) -> void:
 	match current_state:
-		State.NORMAL:
+		state.NORMAL:
 			handle_normal_state(delta)
-		State.CLING:
-			handle_cling_state(delta)
-
+		state.LADDER:
+			handle_ladder_state(delta)
+		state.SLAM:
+			handle_slam_state(delta)
+	if Input.is_action_just_pressed("dash") and candash and dashactive:
+		dashing = true
+		candash = false
+		print('dash')
+		$dash.start()
+		$candash.start()
+	bodyparts()
 	move_and_slide()
 
 func handle_normal_state(delta: float):
-	var input_dir = Input.get_axis("ui_left", "ui_right")
-	direction = Vector3(input_dir, 0, 0)
+	grav = 20
+	velocity.y += -(grav * delta)
 
-	if direction.x != 0:
-		velocity.x = direction.x * speed
-		anim.play("walk")
+	if is_on_floor():
+		jump_count = 0
+		gliding = false
+		if Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
+			if GameManager.noshard in range(1, 10):
+				if GameManager.noshard <= GameManager.memshard or GameManager.noshard == 0 and GameManager.memshard == 0:
+					anim.play("walk" + str(GameManager.noshard))
+				elif GameManager.noshard > GameManager.memshard:
+					anim.play("nwalk")
+		else:
+			if GameManager.noshard in range(1, 10):
+				if GameManager.noshard == GameManager.memshard:
+					anim.play("idle" + str(GameManager.noshard))
+				elif GameManager.noshard > GameManager.memshard:
+					anim.play("nidle")
+
 	else:
-		velocity.x = move_toward(velocity.x, 0, speed * delta)
-		anim.play("idle")
+		if Input.is_action_just_pressed("glide") and can_glide:
+			gliding = true
+			grav = 5
+		if gliding and can_glide:
+			velocity.y += -(grav * delta)
+		if GameManager.noshard in range(1, 10):
+			anim.play('jump' + str(GameManager.noshard))
 
-	# Jump logic
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = jump_force
-		jump_count = 1
-		anim.play("jump")
-
-	# Wall detection using test_move() instead of RayCast
-	if not is_on_floor() and check_wall_collision():
-		current_state = State.CLING
-
-func handle_cling_state(delta: float):
-	velocity.y = 0  # Stop falling
-	anim.play("cling")  # Play cling animation
-
-	# Wall jump
+	# Jump Logic
 	if Input.is_action_just_pressed("ui_accept"):
-		var wall_normal = get_wall_normal()
-		velocity.y = wall_jump_force.y
-		velocity.x = wall_normal.x * wall_jump_force.x
-		current_state = State.NORMAL
+		if jump_count == 0:  # First jump is always allowed
+			velocity.y = JUMP_VELOCITY
+			jump_count += 1
+			$jump.start()
+		elif jump_count == 1 and dubleactive:  # Second jump only if dubleactive is true
+			velocity.y = JUMP_VELOCITY
+			jump_count += 1
+			$jump.start()
 
-	# If no longer touching a wall, switch back to normal state
-	if not check_wall_collision():
-		current_state = State.NORMAL
+	
 
-func check_wall_collision() -> bool:
-	# Test movement slightly forward to check if there's a wall
-	var test_position = global_transform.origin + Vector3(direction.x * 0.1, 0, 0)
-	return not test_move(Transform3D(), test_position - global_transform.origin)
+	handle_movement(delta)
 
-func get_wall_norma() -> Vector3:
-	# Get the direction of the wall (opposite of player movement)
-	return Vector3(-direction.x, 0, 0)
+func handle_ladder_state(delta: float):
+	grav = 0
+	velocity.y = 0
+	
+	var direction_to_ladder = (ladder_position - global_transform.origin).x
+	if direction_to_ladder > 0 and Input.is_action_pressed("ui_right"):
+		velocity.y = lerpf(velocity.y, SPEED, delta * 18)
+	elif direction_to_ladder < 0 and Input.is_action_pressed("ui_left"):
+		velocity.y = lerpf(velocity.y, SPEED, delta * 18)
+	else:
+		velocity.y = lerpf(velocity.y, 0, delta * 18)
+
+func handle_slam_state(delta: float):
+	velocity.y = -30
+	if is_on_floor():
+		current_state = state.NORMAL
+
+func handle_movement(delta: float):
+	dir = Input.get_axis("ui_left", "ui_right")
+	
+	if dir < 0:
+		anim.flip_h = false
+	elif dir > 0:
+		anim.flip_h = true
+
+	if dir:
+		if dashing:
+			velocity.x = dir * dashsped
+		else:
+			velocity.x = dir *SPEED
+	else:
+		velocity.x = 0
+
+	velocity.z = 0
+	physics_logic()
+
+func _on_timer_timeout() -> void:
+	dashing = false
+
+func _on_candash_timeout() -> void:
+	candash = true
+
+func _on_jump_timeout() -> void:
+	jump_count = 0
+
+func death():
+	call_deferred("_reload_scene")
+
+func _reload_scene():
+	get_tree().reload_current_scene()
+
+func physics_logic():
+	for i in get_slide_collision_count():
+		var col = get_slide_collision(i).get_collider()
+		if col is RigidBody3D:
+			col.apply_central_impulse(-get_slide_collision(i).get_normal() * 0.002)
+
+func bodyparts():
+	if GameManager.noshard == 0:
+		SPEED = 2
+		JUMP_VELOCITY = 1.5
+	elif GameManager.noshard == 1 and GameManager.memshard == 1:
+		SPEED = 3
+		JUMP_VELOCITY = 3.5
+	elif GameManager.noshard == 2 and GameManager.memshard == 2:
+		SPEED = 5
+		JUMP_VELOCITY = 4.7
+	elif GameManager.noshard == 3 and GameManager.memshard == 3:
+		SPEED = 5
+		JUMP_VELOCITY = 4.7
+		dashsped = 4
+	elif GameManager.noshard > GameManager.memshard:
+		SPEED = 5
+		JUMP_VELOCITY = 6

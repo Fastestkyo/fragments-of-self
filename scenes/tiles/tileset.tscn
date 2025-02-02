@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://by1ux1yrerjnb"]
+[gd_scene load_steps=10 format=4 uid="uid://by1ux1yrerjnb"]
 
 [ext_resource type="PackedScene" uid="uid://00835w8f818p" path="res://scenes/tiles/tileset.glb" id="1_ypg1k"]
 [ext_resource type="Texture2D" uid="uid://di1e10qqhqhs7" path="res://addons/godot_super-wakatime/tileset (2)_tatti_dirt.jpg" id="2_myuut"]
@@ -48,6 +48,11 @@ shadow_mesh = SubResource("ArrayMesh_c2l1f")
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_2l0pf"]
 data = PackedVector3Array(-1, 0, 1, 1, 0, -1, 1, 0, 1, -1, 0, 1, -1, 0, -1, 1, 0, -1, -1, 0, -1, 1, 2, -1, 1, 0, -1, -1, 0, -1, -1, 2, -1, 1, 2, -1, -1, 2, -1, 1, 0, -1, 1, 2, -1, -1, 2, -1, -1, 0, -1, 1, 0, -1, 1, 2, -1, -1, 2, 1, -1, 2, -1, 1, 2, -1, 1, 2, 1, -1, 2, 1, 1, 2, 1, -1, 2, 1, -1, 2, 1, 1, 2, 1, 1, 2, 1, -1, 2, 1, 1, 2, 1, -1, 0, 1, -1, 2, 1, 1, 2, 1, 1, 0, 1, -1, 0, 1, 1, 0, -1, 1, 2, 1, 1, 0, 1, 1, 0, -1, 1, 2, -1, 1, 2, 1, -1, 0, 1, -1, 2, -1, -1, 0, -1, -1, 0, 1, -1, 2, 1, -1, 2, -1)
 
+[sub_resource type="BoxMesh" id="BoxMesh_h6sek"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_clei1"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
 [node name="tileset" instance=ExtResource("1_ypg1k")]
 
 [node name="Plane" parent="." index="0"]
@@ -67,3 +72,11 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plane2/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_2l0pf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2"]
+mesh = SubResource("BoxMesh_h6sek")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" index="0"]
+shape = SubResource("ConcavePolygonShape3D_clei1")

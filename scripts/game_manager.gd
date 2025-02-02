@@ -13,8 +13,8 @@ var inv = {
 }
 
 @export var memshard_map: Dictionary = {
-	1: "res://scenes/levels/level_2.tscn"
-	
+	1: "res://scenes/levels/level_1.tscn",
+	2: "res://scenes/levels/level_2.tscn"
 }
 
 func tp_no():
