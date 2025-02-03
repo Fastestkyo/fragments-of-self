@@ -16,9 +16,9 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.name == 'player':
 		if type == 1:
 			anim.play('shard')
-			GameManager.noshard += 1
 			$Area3D.queue_free()
 			await anim.animation_finished
+			GameManager.noshard += 1
 			GameManager.tp_no()
 			self.queue_free()
 		elif type == 0:
