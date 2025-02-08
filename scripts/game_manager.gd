@@ -2,11 +2,13 @@ extends Node
 
 var noshard = 0
 var memshard = 0
-
+var lastdim = 0
 var inv = {
-	'shovel': 0
+	'shovel': 0,
+	'key':0
 }
 
+var currentdim = 0
 @export var noshard_map: Dictionary = {
 	1: "res://scenes/levels/memory_1.tscn",
 	2: "res://scenes/levels/memory_2.tscn"

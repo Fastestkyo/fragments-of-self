@@ -3,8 +3,9 @@ extends CharacterBody3D
 @onready var anim: AnimatedSprite3D = $AnimatedSprite3D
 
 @export var SPEED = 5
-@export var max_jump: int = 1
-var JUMP_VELOCITY = 4.5
+@export var ACCELERATION = 25
+@export var max_jump: int = 2
+var JUMP_VELOCITY = 5.5
 var grav = 20
 var ladder_position = Vector3.ZERO
 var dir
@@ -16,7 +17,8 @@ var jump_count = 0
 var gliding = false
 var can_glide = false
 var dashsped = 15
-
+var canswitchdim :bool = true
+var FRICTION = 5  
 
 enum state {
 	NORMAL, LADDER, SLAM
@@ -31,57 +33,49 @@ func _physics_process(delta: float) -> void:
 			handle_ladder_state(delta)
 		state.SLAM:
 			handle_slam_state(delta)
+	
 	if Input.is_action_just_pressed("dash") and candash and dashactive:
 		dashing = true
 		candash = false
 		print('dash')
 		$dash.start()
 		$candash.start()
+	
+	if !is_on_floor() and Input.is_action_just_pressed("ui_down"):
+		current_state = state.SLAM
+	
+	if Input.is_action_just_pressed("t"):
+		if canswitchdim:
+			change_dim()
+			print(GameManager.currentdim)
+	
 	bodyparts()
 	move_and_slide()
 
 func handle_normal_state(delta: float):
-	grav = 20
-	velocity.y += -(grav * delta)
-
+	if GameManager.currentdim == 1:  # Reality
+		grav = 20
+		FRICTION = 20  # Reality friction
+		velocity.y += -(grav * delta)
+	elif GameManager.currentdim == 0:  # Dream Realm
+		grav = randi_range(10, 30)
+		FRICTION = 5  # Dream realm friction
+		velocity.y += -(grav * delta) * 0.5  # Lighter gravity
+	
 	if is_on_floor():
 		jump_count = 0
 		gliding = false
-		if Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
-			if GameManager.noshard in range(1, 10):
-				if GameManager.noshard <= GameManager.memshard or GameManager.noshard == 0 and GameManager.memshard == 0:
-					anim.play("walk" + str(GameManager.noshard))
-				elif GameManager.noshard > GameManager.memshard:
-					anim.play("nwalk")
-		else:
-			if GameManager.noshard in range(1, 10):
-				if GameManager.noshard == GameManager.memshard:
-					anim.play("idle" + str(GameManager.noshard))
-				elif GameManager.noshard > GameManager.memshard:
-					anim.play("nidle")
-
-	else:
-		if Input.is_action_just_pressed("glide") and can_glide:
-			gliding = true
-			grav = 5
-		if gliding and can_glide:
-			velocity.y += -(grav * delta)
-		if GameManager.noshard in range(1, 10):
-			anim.play('jump' + str(GameManager.noshard))
-
-	# Jump Logic
-	if Input.is_action_just_pressed("ui_accept"):
-		if jump_count == 0:  # First jump is always allowed
-			velocity.y = JUMP_VELOCITY
-			jump_count += 1
-			$jump.start()
-		elif jump_count == 1 and dubleactive:  # Second jump only if dubleactive is true
-			velocity.y = JUMP_VELOCITY
-			jump_count += 1
-			$jump.start()
-
 	
-
+	if Input.is_action_just_pressed("ui_accept"):
+		if jump_count == 0:
+			velocity.y = JUMP_VELOCITY
+			jump_count += 1
+			$jump.start()
+		elif jump_count == 1 and dubleactive:
+			velocity.y = JUMP_VELOCITY
+			jump_count += 1
+			$jump.start()
+	
 	handle_movement(delta)
 
 func handle_ladder_state(delta: float):
@@ -97,9 +91,13 @@ func handle_ladder_state(delta: float):
 		velocity.y = lerpf(velocity.y, 0, delta * 18)
 
 func handle_slam_state(delta: float):
-	velocity.y = -30
 	if is_on_floor():
+		var slam_force = -velocity.y * 1.5  # Increase this multiplier for more impact.
+		velocity.y = slam_force
 		current_state = state.NORMAL
+
+	else:
+		velocity.y = -30  # You can adjust the speed of the fall or apply more gravity during the slam state.
 
 func handle_movement(delta: float):
 	dir = Input.get_axis("ui_left", "ui_right")
@@ -108,15 +106,13 @@ func handle_movement(delta: float):
 		anim.flip_h = false
 	elif dir > 0:
 		anim.flip_h = true
-
+	
 	if dir:
-		if dashing:
-			velocity.x = dir * dashsped
-		else:
-			velocity.x = dir *SPEED
+		var target_speed = dashsped if dashing else SPEED
+		velocity.x = move_toward(velocity.x, dir * target_speed, ACCELERATION * delta)
 	else:
-		velocity.x = 0
-
+		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+	
 	velocity.z = 0
 	physics_logic()
 
@@ -129,46 +125,59 @@ func _on_candash_timeout() -> void:
 func _on_jump_timeout() -> void:
 	jump_count = 0
 
-func death():
-	call_deferred("_reload_scene")
-
-func _reload_scene():
-	get_tree().reload_current_scene()
-
 func physics_logic():
 	for i in get_slide_collision_count():
-		var col = get_slide_collision(i).get_collider()
-		if col is RigidBody3D:
-			col.apply_central_impulse(-get_slide_collision(i).get_normal() * 0.002)
+		var col = get_slide_collision(i)
+		if col.get_collider() is RigidBody3D:
+			col.get_collider().apply_central_impulse(-col.get_normal() * 1)
+
+func change_dim():
+	if GameManager.currentdim == 1:
+		GameManager.currentdim = 0
+		print("dreaasdifyioagfioagsiudm")
+	elif GameManager.currentdim == 0:
+		GameManager.currentdim = 1
+		print("realitsrjhapisyf9aysfy")
+	
+	print(GameManager.currentdim)
+
+func death():
+	call_deferred("_death")
+	
+func _death():
+	get_tree().reload_current_scene()
+
+
 
 func bodyparts():
-	if GameManager.noshard == 0:
-		SPEED = 2
-		JUMP_VELOCITY = 1.5
-		candash= false
-	elif GameManager.noshard == 1 and GameManager.memshard == 1:
-		SPEED = 3
-		candash= false
-		JUMP_VELOCITY = 3.5
-	elif GameManager.noshard == 2 and GameManager.memshard == 2:
-		SPEED = 5
-		JUMP_VELOCITY = 4.7
-		candash= false
-	elif GameManager.noshard == 3 and GameManager.memshard == 3:
-		SPEED = 5
-		JUMP_VELOCITY = 4.7
-		candash= true
-		dashsped = 4
-	elif GameManager.noshard == 4 and GameManager.memshard == 4:
-		SPEED = 5
-		JUMP_VELOCITY = 4.7
-		candash= true
-		dashsped = 7
-	elif GameManager.noshard == 5 and GameManager.memshard == 5:
-		SPEED = 5
-		JUMP_VELOCITY = 4.7
-		candash= true
-		dashsped = 10
-	elif GameManager.noshard > GameManager.memshard:
-		SPEED = 5
-		JUMP_VELOCITY = 6
+	#if GameManager.noshard == 0:
+		#SPEED = 2
+		#JUMP_VELOCITY = 1.5
+		#candash= false
+	#elif GameManager.noshard == 1 and GameManager.memshard == 1:
+		#SPEED = 3
+		#candash= false
+		#JUMP_VELOCITY = 3.5
+	#elif GameManager.noshard == 2 and GameManager.memshard == 2:
+		#SPEED = 5
+		#JUMP_VELOCITY = 4.7
+		#candash= false
+	#elif GameManager.noshard == 3 and GameManager.memshard == 3:
+		#SPEED = 5
+		#JUMP_VELOCITY = 4.7
+		#candash= true
+		#dashsped = 4
+	#elif GameManager.noshard == 4 and GameManager.memshard == 4:
+		#SPEED = 5
+		#JUMP_VELOCITY = 4.7
+		#candash= true
+		#dashsped = 7
+	#elif GameManager.noshard == 5 and GameManager.memshard == 5:
+		#SPEED = 5
+		#JUMP_VELOCITY = 4.7
+		#candash= true
+		#dashsped = 10
+	#elif GameManager.noshard > GameManager.memshard:
+		#SPEED = 5
+		#JUMP_VELOCITY = 6
+		pass

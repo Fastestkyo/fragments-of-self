@@ -1,11 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://cevmf40fthru8"]
+[gd_scene load_steps=22 format=3 uid="uid://cevmf40fthru8"]
 
 [ext_resource type="Script" path="res://scenes/sprites/player/player.gd" id="1_lm0qn"]
 [ext_resource type="Texture2D" uid="uid://b6xduxtfb3qqx" path="res://assets/Template-fall.png" id="2_yrndi"]
 [ext_resource type="Texture2D" uid="uid://dg5c1kiicky7k" path="res://assets/Template-death.png" id="3_st6po"]
 [ext_resource type="Texture2D" uid="uid://dcemy8a808yrv" path="res://assets/Template-jump.png" id="4_3jper"]
 [ext_resource type="Texture2D" uid="uid://b87st3xshmtkr" path="res://assets/Idle.png" id="5_i125n"]
-[ext_resource type="PackedScene" uid="uid://bfs7tjsudlaiq" path="res://scenes/sprites/misc/card.tscn" id="6_0uy7f"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4mhse"]
 radius = 0.29657
@@ -144,6 +143,9 @@ collision_layer = 2
 collision_mask = 15
 axis_lock_linear_z = true
 script = ExtResource("1_lm0qn")
+SPEED = null
+ACCELERATION = null
+max_jump = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.507835, 0)
@@ -167,9 +169,6 @@ wait_time = 0.4
 
 [node name="jump" type="Timer" parent="."]
 wait_time = 0.7
-
-[node name="card" parent="." instance=ExtResource("6_0uy7f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.397221, 0)
 
 [connection signal="timeout" from="dash" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="candash" to="." method="_on_candash_timeout"]
