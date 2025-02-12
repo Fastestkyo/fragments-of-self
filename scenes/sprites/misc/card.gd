@@ -41,4 +41,4 @@ func launch_card():
 		return
 	var target_position = rayori + raydir * t
 	var direction = (target_position - global_transform.origin).normalized()
-	card_instance.launch(direction, speed)
+	card_inst.launch(direction, speed)
