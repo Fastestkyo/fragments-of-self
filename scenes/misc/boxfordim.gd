@@ -3,7 +3,7 @@ extends MeshInstance3D
 func _ready():
 	update()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if GameManager and GameManager.currentdim != GameManager.lastdim:
 		GameManager.lastdim = GameManager.currentdim
 		update()

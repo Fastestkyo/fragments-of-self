@@ -1,27 +1,44 @@
 extends Node3D
 
-@export var rotation_smoothing: float = 5.0
+@export var camera:Camera3D  
+@export var card:PackedScene  
+var speed: float = 10.0 
 
-func _process(delta):
-	var camera = get_viewport().get_camera_3d()
-	if camera == null:
-		return
+func _process(_delta):
+	rotate_tocursor()
+	if Input.is_action_just_pressed("ui_down"):
+		launch_card()
 
-	var mouse_pos = get_viewport().get_mouse_position()
-	var ray_origin = camera.project_ray_origin(mouse_pos)
-	var ray_direction = camera.project_ray_normal(mouse_pos)
-	
-	var plane_z = global_transform.origin.z
-	if abs(ray_direction.z) < 0.001:
-		return
-	var t = (plane_z - ray_origin.z) / ray_direction.z
+func rotate_tocursor():
+	var mous_pos = get_viewport().get_mouse_position()
+	var rayori = camera.project_ray_origin(mous_pos)
+	var raydir = camera.project_ray_normal(mous_pos)
+
+	var tarz = global_transform.origin.z  
+	if abs(raydir.z) < 0.001:
+		return  
+	var t = (tarz - rayori.z) / raydir.z
 	if t < 0:
 		return
-	var intersection = ray_origin + ray_direction * t
+	var tarpos = rayori + raydir * t
+	var dir = (tarpos - global_transform.origin).normalized()
+	var angle = atan2(dir.y, dir.x)
+	rotation.z = angle
 
-	# Compute the difference in the XY plane.
-	var diff = intersection - global_transform.origin
-	# Calculate the target angle (in radians) from the positive X axis.
-	var target_angle = atan2(diff.y, diff.x)
-	# Smoothly interpolate between the current angle and the target angle.
-	rotation.z = lerp_angle(rotation.z, target_angle, rotation_smoothing * delta)
+func launch_card():
+	var card_inst = card.instantiate()
+	get_tree().current_scene.add_child(card_inst)
+	card_inst.global_position = $Marker3D2.global_position
+	card_inst.rotation.z = rotation.z
+	var mouspos = get_viewport().get_mouse_position()
+	var rayori = camera.project_ray_origin(mouspos)
+	var raydir = camera.project_ray_normal(mouspos)
+	var tarz = global_transform.origin.z 
+	if abs(raydir.z) < 0.001:
+		return 
+	var t = (tarz - rayori.z) / raydir.z
+	if t < 0:
+		return
+	var target_position = rayori + raydir * t
+	var direction = (target_position - global_transform.origin).normalized()
+	card_instance.launch(direction, speed)

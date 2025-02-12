@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 @onready var anim: AnimatedSprite3D = $AnimatedSprite3D
-
+@onready var card: Node3D = $card
 @export var SPEED = 5
 @export var ACCELERATION = 25
 @export var max_jump: int = 2
@@ -18,7 +18,7 @@ var gliding = false
 var can_glide = false
 var dashsped = 15
 var canswitchdim :bool = true
-var FRICTION = 5  
+var fric = 5  
 
 enum state {
 	NORMAL, LADDER, SLAM
@@ -33,7 +33,11 @@ func _physics_process(delta: float) -> void:
 			handle_ladder_state(delta)
 		state.SLAM:
 			handle_slam_state(delta)
-	
+			
+	if Input.is_action_just_pressed("1"):
+		GameManager.currentcard = 0
+	if Input.is_action_just_pressed("2"):
+		GameManager.currentcard = 1
 	if Input.is_action_just_pressed("dash") and candash and dashactive:
 		dashing = true
 		candash = false
@@ -52,15 +56,16 @@ func _physics_process(delta: float) -> void:
 	bodyparts()
 	move_and_slide()
 
+
 func handle_normal_state(delta: float):
-	if GameManager.currentdim == 1:  # Reality
+	if GameManager.currentdim == 1:
 		grav = 20
-		FRICTION = 20  # Reality friction
+		fric = 20  
 		velocity.y += -(grav * delta)
-	elif GameManager.currentdim == 0:  # Dream Realm
+	elif GameManager.currentdim == 0:  
 		grav = randi_range(10, 30)
-		FRICTION = 5  # Dream realm friction
-		velocity.y += -(grav * delta) * 0.5  # Lighter gravity
+		fric = 5  
+		velocity.y += -(grav * delta) * 0.5 
 	
 	if is_on_floor():
 		jump_count = 0
@@ -90,14 +95,14 @@ func handle_ladder_state(delta: float):
 	else:
 		velocity.y = lerpf(velocity.y, 0, delta * 18)
 
-func handle_slam_state(delta: float):
+func handle_slam_state(_delta: float):
 	if is_on_floor():
-		var slam_force = -velocity.y * 1.5  # Increase this multiplier for more impact.
+		var slam_force = -velocity.y * 1.5 
 		velocity.y = slam_force
 		current_state = state.NORMAL
 
 	else:
-		velocity.y = -30  # You can adjust the speed of the fall or apply more gravity during the slam state.
+		velocity.y = -30 
 
 func handle_movement(delta: float):
 	dir = Input.get_axis("ui_left", "ui_right")
@@ -111,7 +116,7 @@ func handle_movement(delta: float):
 		var target_speed = dashsped if dashing else SPEED
 		velocity.x = move_toward(velocity.x, dir * target_speed, ACCELERATION * delta)
 	else:
-		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+		velocity.x = move_toward(velocity.x, 0, fric * delta)
 	
 	velocity.z = 0
 	physics_logic()
@@ -146,8 +151,6 @@ func death():
 	
 func _death():
 	get_tree().reload_current_scene()
-
-
 
 func bodyparts():
 	#if GameManager.noshard == 0:

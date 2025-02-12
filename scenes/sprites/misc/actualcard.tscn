@@ -1,0 +1,95 @@
+[gd_scene load_steps=14 format=3 uid="uid://dc4jgnfp7jvlx"]
+
+[ext_resource type="Script" path="res://actualcard.gd" id="1_2wa45"]
+[ext_resource type="Texture2D" uid="uid://c43bqknl6qe6a" path="res://assets/slime-Sheet.png" id="2_ul4j6"]
+[ext_resource type="Texture2D" uid="uid://bf5hnxau26stb" path="res://assets/Sprite-0004-Sheet.png" id="3_0yc8k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfj13"]
+atlas = ExtResource("2_ul4j6")
+region = Rect2(0, 50, 32, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8v0aa"]
+atlas = ExtResource("2_ul4j6")
+region = Rect2(32, 50, 32, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pw52"]
+atlas = ExtResource("2_ul4j6")
+region = Rect2(64, 50, 32, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjljn"]
+atlas = ExtResource("2_ul4j6")
+region = Rect2(96, 50, 32, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndg4a"]
+atlas = ExtResource("2_ul4j6")
+region = Rect2(128, 50, 32, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_le5qy"]
+atlas = ExtResource("3_0yc8k")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hpry"]
+atlas = ExtResource("3_0yc8k")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08cc1"]
+atlas = ExtResource("3_0yc8k")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ywq5j"]
+atlas = ExtResource("3_0yc8k")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cbtj0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfj13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8v0aa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pw52")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjljn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndg4a")
+}],
+"loop": true,
+"name": &"0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_le5qy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5hpry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08cc1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ywq5j")
+}],
+"loop": true,
+"name": &"1",
+"speed": 5.0
+}]
+
+[node name="actualcard" type="Node3D"]
+script = ExtResource("1_2wa45")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cbtj0")
+animation = &"1"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

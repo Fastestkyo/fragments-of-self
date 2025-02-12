@@ -168,8 +168,9 @@ wait_time = 0.4
 [node name="jump" type="Timer" parent="."]
 wait_time = 0.7
 
-[node name="card" parent="." instance=ExtResource("6_0uy7f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.397221, 0)
+[node name="card" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("6_0uy7f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.477649, 0)
+camera = NodePath("../Camera3D")
 
 [connection signal="timeout" from="dash" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="candash" to="." method="_on_candash_timeout"]
